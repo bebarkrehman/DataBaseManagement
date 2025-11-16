@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rF9aXv3U2cs=",
+  "dgSpecHash": "Y/cZvpQjNtQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Fine Traders\\source\\repos\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter.csproj",
+  "projectFilePath": "E:\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Fine Traders\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\Fine Traders\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

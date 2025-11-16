@@ -1604,11 +1604,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fine Traders\\source\\repos\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter.csproj",
+      "projectUniqueName": "E:\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter.csproj",
       "projectName": "DatabaseSecriptExecuter",
-      "projectPath": "C:\\Users\\Fine Traders\\source\\repos\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter.csproj",
+      "projectPath": "E:\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter.csproj",
       "packagesPath": "C:\\Users\\Fine Traders\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fine Traders\\source\\repos\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter\\obj\\",
+      "outputPath": "E:\\DatabaseSecriptExecuter\\DatabaseSecriptExecuter\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

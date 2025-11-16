@@ -1,0 +1,5 @@
+E:\DatabaseSecriptExecuter\DatabaseSecriptExecuter\obj\Debug\net8.0\DatabaseSecriptExecuter.GeneratedMSBuildEditorConfig.editorconfig
+E:\DatabaseSecriptExecuter\DatabaseSecriptExecuter\obj\Debug\net8.0\DatabaseSecriptExecuter.AssemblyInfoInputs.cache
+E:\DatabaseSecriptExecuter\DatabaseSecriptExecuter\obj\Debug\net8.0\DatabaseSecriptExecuter.AssemblyInfo.cs
+E:\DatabaseSecriptExecuter\DatabaseSecriptExecuter\obj\Debug\net8.0\DatabaseSecriptExecuter.csproj.CoreCompileInputs.cache
+E:\DatabaseSecriptExecuter\DatabaseSecriptExecuter\obj\Debug\net8.0\DatabaseSecriptExecuter.sourcelink.json
