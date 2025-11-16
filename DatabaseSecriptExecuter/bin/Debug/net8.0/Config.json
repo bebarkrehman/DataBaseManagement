@@ -1,0 +1,9 @@
+[
+  {
+    "CompanyName": "Company1",
+    "Server": "(localdb)\\MSSQLLocalDB",
+    "Database": "Demodb",
+    "User": "bil",
+    "Password": "abc.123"
+  }
+]

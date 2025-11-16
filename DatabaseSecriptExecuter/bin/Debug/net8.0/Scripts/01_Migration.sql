@@ -497,7 +497,7 @@ BEGIN
         CreatedBy INT NULL,
         UpdatedDate DATETIME NULL,
         UpdatedBy INT NULL,
-        CONSTRAINT PK_Shift PRIMARY KEY (EmployeeWorkingDayId, CompanyId),
+        CONSTRAINT PK_EmployeeWorkingDay PRIMARY KEY (EmployeeWorkingDayId, CompanyId),
         CONSTRAINT FK_EmployeeWorkingDay_Employee FOREIGN KEY (EmployeeId, CompanyId) REFERENCES Employee(EmployeeId, CompanyId),
         CONSTRAINT FK_EmployeeWorkingDay_Shift FOREIGN KEY (ShiftId, CompanyId) REFERENCES Shift(ShiftId, CompanyId)
     );
@@ -726,7 +726,7 @@ BEGIN
         CreatedBy INT NULL,
         UpdatedDate DATETIME NULL,
         UpdatedBy INT NULL,
-        CONSTRAINT PK_MachineConfig PRIMARY KEY (EmployeeManualAttendanceId, CompanyId),
+        CONSTRAINT PK_EmployeeManualAttendance PRIMARY KEY (EmployeeManualAttendanceId, CompanyId),
         -- Foreign Key Constraints
         CONSTRAINT FK_EmployeeManualAttendance_Employee FOREIGN KEY (EmployeeId, CompanyId) REFERENCES Employee(EmployeeId, CompanyId)
     );
@@ -859,7 +859,7 @@ END
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'PayrollDetail')
 BEGIN
     CREATE TABLE PayrollDetail (
-        PayrollDetailId INT NOT NULL PRIMARY KEY,
+        PayrollDetailId INT NOT NULL,
         CompanyId INT NOT NULL,
         PayrollMasterId INT NOT NULL,           -- Link to PayrollMaster
         EmployeeId INT NOT NULL,                -- Employee reference
@@ -872,7 +872,7 @@ BEGIN
         CreatedBy INT NULL,
         UpdatedDate DATETIME NULL,
         UpdatedBy INT NULL,
-
+         CONSTRAINT PK_PayrollDetail PRIMARY KEY (PayrollDetailId, CompanyId),
         -- Foreign Key Constraints
         CONSTRAINT FK_PayrollDetail_Master FOREIGN KEY (PayrollMasterId,CompanyId) REFERENCES PayrollMaster(PayrollMasterId,CompanyId),
         CONSTRAINT FK_PayrollDetail_Employee FOREIGN KEY (PayrollMasterId,CompanyId) REFERENCES Employee(EmployeeId,CompanyId),

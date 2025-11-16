@@ -1,10 +1,11 @@
 ﻿using DatabaseSecriptExecuter;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text.Json;
-using Microsoft.Data.SqlClient;
+
 namespace MultiDbSqlExecutorWithJson
 {
     class Program
@@ -12,17 +13,18 @@ namespace MultiDbSqlExecutorWithJson
         static void Main(string[] args)
         {
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string jsonPath = Path.Combine(basePath, "dbconfig.json");// JSON file path
-            string scriptsFolder = Path.Combine(basePath, "SqlScripts");// SQL scripts folder
+            string jsonPath = Path.Combine(basePath, "Config.json");  // JSON file
+            string scriptsFolder = Path.Combine(basePath, "Scripts"); // SQL Scripts folder
             string[] sqlFiles = Directory.GetFiles(scriptsFolder, "*.sql");
-            Array.Sort(sqlFiles); // Ensure sequential execution
+            Array.Sort(sqlFiles);
 
-            // Read JSON1
+            // Read JSON
             List<DbConfig> dbList = JsonSerializer.Deserialize<List<DbConfig>>(File.ReadAllText(jsonPath))!;
 
             foreach (var db in dbList)
             {
                 Console.WriteLine($"Executing scripts on {db.Database} @ {db.Server}");
+
                 string connStr = $"Server={db.Server};Database={db.Database};User Id={db.User};Password={db.Password};";
 
                 try
@@ -31,33 +33,47 @@ namespace MultiDbSqlExecutorWithJson
                     {
                         connection.Open();
 
-                        foreach (var file in sqlFiles)
+                        // Start Transaction
+                        SqlTransaction transaction = connection.BeginTransaction();
+
+                        try
                         {
-                            Console.WriteLine($"  Executing script: {Path.GetFileName(file)}");
-
-                            string script = File.ReadAllText(file);
-
-                            using (SqlCommand cmd = new SqlCommand(script, connection))
+                            foreach (var file in sqlFiles)
                             {
-                                cmd.ExecuteNonQuery();
+                                Console.WriteLine($"  Executing script: {Path.GetFileName(file)}");
+
+                                string script = File.ReadAllText(file);
+
+                                using (SqlCommand cmd = new SqlCommand(script, connection, transaction))
+                                {
+                                    cmd.ExecuteNonQuery();
+                                }
+
+                                Console.WriteLine("  -> Executed");
                             }
 
-                            Console.WriteLine("  Done.");
+                            // All scripts OK → COMMIT
+                            transaction.Commit();
+                            Console.WriteLine($"✔ All scripts executed successfully on {db.Database}\n");
+                        }
+                        catch (Exception ex)
+                        {
+                            // Error → ROLLBACK
+                            transaction.Rollback();
+                            Console.WriteLine($"❌ Error in {db.Database}. All changes rolled back!");
+                            Console.WriteLine($"   Message: {ex.Message}\n");
                         }
 
                         connection.Close();
                     }
-
-                    Console.WriteLine($"All scripts executed on {db.Database}\n");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error on {db.Database}: {ex.Message}");
+                    Console.WriteLine($"❌ Connection Error on {db.Database}: {ex.Message}");
                 }
             }
 
-            Console.WriteLine("All scripts executed on all databases!");
-            Console.WriteLine("Press any key to exit...");
+            Console.WriteLine("All databases processed!");
             Console.ReadKey();
         }
     }
