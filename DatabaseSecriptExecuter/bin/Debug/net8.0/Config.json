@@ -5,5 +5,13 @@
     "Database": "Demodb",
     "User": "bil",
     "Password": "abc.123"
+  },
+  {
+    "CompanyName": "Company1",
+    "Server": "(localdb)\\MSSQLLocalDB",
+    "Database": "SmartHR",
+    "User": "bil",
+    "Password": "abc.123"
   }
+  
 ]

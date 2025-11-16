@@ -33,12 +33,16 @@ namespace MultiDbSqlExecutorWithJson
                     {
                         connection.Open();
 
-                        // Start Transaction
-                        SqlTransaction transaction = connection.BeginTransaction();
+                        
 
-                        try
+
+                        foreach (var file in sqlFiles)
                         {
-                            foreach (var file in sqlFiles)
+                            
+                            Console.WriteLine($"Start scripts executed successfully on {db.Database}\n");
+                            // Start Transaction
+                            SqlTransaction transaction = connection.BeginTransaction();
+                            try
                             {
                                 Console.WriteLine($"  Executing script: {Path.GetFileName(file)}");
 
@@ -50,26 +54,26 @@ namespace MultiDbSqlExecutorWithJson
                                 }
 
                                 Console.WriteLine("  -> Executed");
+
+                                // All scripts OK → COMMIT
+                                transaction.Commit();
+                                Console.WriteLine($"Close scripts executed successfully on {db.Database}\n");
                             }
-
-                            // All scripts OK → COMMIT
-                            transaction.Commit();
-                            Console.WriteLine($"✔ All scripts executed successfully on {db.Database}\n");
+                            catch (Exception ex)
+                            {
+                                // Error → ROLLBACK
+                                transaction.Rollback();
+                                Console.WriteLine($"Error in {db.Database}. All changes rolled back!");
+                                Console.WriteLine($"Message: {ex.Message}\n");
+                                break;
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            // Error → ROLLBACK
-                            transaction.Rollback();
-                            Console.WriteLine($"❌ Error in {db.Database}. All changes rolled back!");
-                            Console.WriteLine($"   Message: {ex.Message}\n");
-                        }
-
                         connection.Close();
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"❌ Connection Error on {db.Database}: {ex.Message}");
+                    Console.WriteLine($"Connection Error on {db.Database}: {ex.Message}");
                 }
             }
 

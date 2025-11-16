@@ -620,6 +620,7 @@ BEGIN
     CREATE TABLE EmployeeLeaveDetail (
         EmployeeLeaveDetailId INT NOT NULL,
         EmployeeLeaveId INT NOT NULL,
+        EmployeeId INT NOT NULL,
         CompanyId INT NOT NULL,
         LeaveDate DATE NOT NULL,
         DayType NVARCHAR(20) NOT NULL DEFAULT 'FullDay',
