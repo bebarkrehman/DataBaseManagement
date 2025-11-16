@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DatabaseSecriptExecuter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4369214b2a60433a9995b8311b04c62d6f0501b8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+beeb0190812be1ff90c87b5e9beee6c0baac0e69")]
 [assembly: System.Reflection.AssemblyProductAttribute("DatabaseSecriptExecuter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DatabaseSecriptExecuter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

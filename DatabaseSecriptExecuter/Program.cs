@@ -13,7 +13,7 @@ namespace MultiDbSqlExecutorWithJson
         static void Main(string[] args)
         {
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string jsonPath = Path.Combine(basePath, "Config.json");  // JSON file
+            string jsonPath = Path.Combine(basePath, "Scripts/Config.json");  // JSON file
             string scriptsFolder = Path.Combine(basePath, "Scripts"); // SQL Scripts folder
             string[] sqlFiles = Directory.GetFiles(scriptsFolder, "*.sql");
             Array.Sort(sqlFiles);

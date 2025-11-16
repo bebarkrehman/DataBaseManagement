@@ -32,41 +32,62 @@ BEGIN
     ALL TO ([PRIMARY]);
 END
 
+-- ====================================
+-- EmployeeAttendance table indexes
+-- ====================================
+
+-- Index on EmployeeId + CompanyId
 IF NOT EXISTS (
     SELECT 1 
     FROM sys.indexes 
-    WHERE name = 'IX_EmployeeRoster_RosterDate_EmployeeId'
-      AND object_id = OBJECT_ID('EmployeeRoster')
-)
-BEGIN
-    CREATE NONCLUSTERED INDEX IX_EmployeeRoster_RosterDate_EmployeeId
-    ON EmployeeRoster(EmployeeId, RosterDate)  -- columns to index
-    ON PS_MonthlyDate(RosterDate);             -- partitioned on RosterDate
-END
-
-
-IF NOT EXISTS (
-    SELECT 1 
-    FROM sys.indexes 
-    WHERE name = 'IX_EmployeeAttendance_EmployeeId_AttendanceDate'
+    WHERE name = 'IX_EmployeeAttendance_EmployeeId_CompanyId'
       AND object_id = OBJECT_ID('EmployeeAttendance')
 )
 BEGIN
-    CREATE NONCLUSTERED INDEX IX_EmployeeAttendance_EmployeeId_AttendanceDate
-    ON EmployeeAttendance(EmployeeId, AttendanceDate)
-    ON PS_MonthlyDate(AttendanceDate);
+    CREATE NONCLUSTERED INDEX IX_EmployeeAttendance_EmployeeId_CompanyId
+    ON EmployeeAttendance(EmployeeId, CompanyId);
 END
 
+-- Index on AttendanceDate (partitioned)
 IF NOT EXISTS (
     SELECT 1 
     FROM sys.indexes 
-    WHERE name = 'IX_EmployeeAttendanceLog_EmployeeId_AttendanceDate'
+    WHERE name = 'IX_EmployeeAttendance_AttendanceDate'
+      AND object_id = OBJECT_ID('EmployeeAttendance')
+)
+BEGIN
+    CREATE NONCLUSTERED INDEX IX_EmployeeAttendance_AttendanceDate
+    ON EmployeeAttendance(AttendanceDate)
+    ON PS_MonthlyDate(AttendanceDate);  -- Partitioned
+END
+
+-- ====================================
+-- EmployeeAttendanceLog table indexes
+-- ====================================
+
+-- Index on EmployeeId + CompanyId
+IF NOT EXISTS (
+    SELECT 1 
+    FROM sys.indexes 
+    WHERE name = 'IX_EmployeeAttendanceLog_EmployeeId_CompanyId'
       AND object_id = OBJECT_ID('EmployeeAttendanceLog')
 )
 BEGIN
-    CREATE NONCLUSTERED INDEX IX_EmployeeAttendanceLog_EmployeeId_AttendanceDate
-    ON EmployeeAttendanceLog(EmployeeId, AttendanceDate)
-    ON PS_MonthlyDate(AttendanceDate);
+    CREATE NONCLUSTERED INDEX IX_EmployeeAttendanceLog_EmployeeId_CompanyId
+    ON EmployeeAttendanceLog(EmployeeId, CompanyId);
+END
+
+-- Index on AttendanceDate (partitioned)
+IF NOT EXISTS (
+    SELECT 1 
+    FROM sys.indexes 
+    WHERE name = 'IX_EmployeeAttendanceLog_AttendanceDate'
+      AND object_id = OBJECT_ID('EmployeeAttendanceLog')
+)
+BEGIN
+    CREATE NONCLUSTERED INDEX IX_EmployeeAttendanceLog_AttendanceDate
+    ON EmployeeAttendanceLog(AttendanceDate)
+    ON PS_MonthlyDate(AttendanceDate);  -- Partitioned
 END
  -------------------------------
     -- Insert Schema Version
