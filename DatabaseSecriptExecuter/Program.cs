@@ -11,8 +11,9 @@ namespace MultiDbSqlExecutorWithJson
     {
         static void Main(string[] args)
         {
-            string jsonPath = @"C:\SqlScripts\dbconfig.json";  // JSON file path
-            string scriptsFolder = @"C:\SqlScripts";          // SQL scripts folder
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string jsonPath = Path.Combine(basePath, "dbconfig.json");// JSON file path
+            string scriptsFolder = Path.Combine(basePath, "SqlScripts");// SQL scripts folder
             string[] sqlFiles = Directory.GetFiles(scriptsFolder, "*.sql");
             Array.Sort(sqlFiles); // Ensure sequential execution
 
